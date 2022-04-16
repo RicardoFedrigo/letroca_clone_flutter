@@ -68,7 +68,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
             itemBuilder: (context, index) {
               return Container(
                 child: SizedBox(
-                  height: 120,
                   width: MediaQuery.of(context).size.width / 7,
                   child: Container(
                       decoration: BoxDecoration(

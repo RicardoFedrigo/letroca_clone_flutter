@@ -33,7 +33,7 @@ class GameScreen extends StatelessWidget {
             padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(border: Border.all(color: Colors.black)),
             child: Text(
-              "Pontos",
+              "level",
               style: TextStyle(fontSize: 20, color: Colors.black),
             ),
           ),

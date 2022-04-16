@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class WordsToFindScreen extends StatelessWidget {
+class WordsToFindInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,6 +11,7 @@ class WordsToFindScreen extends StatelessWidget {
           child: const DecoratedBox(
             decoration: const BoxDecoration(color: Color.fromARGB(255, 255, 237, 138)),
           ),
-        ));
+        )
+      );
   }
 }
