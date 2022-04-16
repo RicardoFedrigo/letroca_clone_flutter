@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:letroca_clone_flutter/Components/CountDownTimer.dart';
+import 'package:letroca_clone_flutter/view/BoardScreen.dart';
+
+import 'WordsToFindScreen.dart';
 
 class GameScreen extends StatelessWidget {
   const GameScreen({Key? key}) : super(key: key);
@@ -36,10 +39,19 @@ class GameScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
+      body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[CountDownTimer()],
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.topCenter,
+              child: WordsToFindScreen(),
+            ),
+            Container(
+              alignment: Alignment.bottomCenter, 
+              child: BoardScreen()
+              )
+          ],
         ),
       ),
     );
