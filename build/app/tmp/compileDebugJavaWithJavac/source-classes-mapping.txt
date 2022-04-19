@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+com/example/letroca_clone_flutter/BuildConfig.java
+ com.example.letroca_clone_flutter.BuildConfig
