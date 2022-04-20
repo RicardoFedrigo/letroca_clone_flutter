@@ -5,13 +5,24 @@ class WordsToFindInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: SizedBox(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.width,
-          child: const DecoratedBox(
-            decoration: const BoxDecoration(color: Color.fromARGB(255, 255, 237, 138)),
-          ),
-        )
-      );
+        child: GridView.count(
+          crossAxisCount: 2,
+
+          children: List.generate(100, (index) {
+            return Center(
+              heightFactor: 1,
+              child: Text(
+                'Item $index'
+                ,
+                style: TextStyle(color: Colors.black.withOpacity(0.6)),
+              ),
+            );
+          }),
+        ),
+      ),
+    );
   }
 }
