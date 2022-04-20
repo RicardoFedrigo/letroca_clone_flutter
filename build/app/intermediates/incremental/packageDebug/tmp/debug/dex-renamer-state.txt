@@ -1,4 +1,0 @@
-#Tue Apr 19 16:59:31 BRT 2022
-base.0=C\:\\Users\\Renan\\Desktop\\letroca\\letroca_clone_flutter\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
