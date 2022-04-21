@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:letroca_clone_flutter/view/PlayerName.dart';
 import 'view/GameScreen.dart';
 
 class Home extends StatelessWidget {
@@ -19,10 +20,10 @@ class Home extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
+                    Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const GameScreen(),
+                          builder: (context) => const PlayerName(),
                         ));
                   },
                   child: Text('START', style: TextStyle(color: Colors.black)),

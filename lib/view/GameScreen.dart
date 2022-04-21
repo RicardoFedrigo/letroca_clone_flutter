@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:letroca_clone_flutter/Components/CountDownTimer.dart';
 import 'package:letroca_clone_flutter/view/KeyboardScreen.dart';
+import 'package:letroca_clone_flutter/view/PlayerName.dart';
 
 import 'WordsToFindInScreen.dart';
 
 class GameScreen extends StatelessWidget {
-  const GameScreen({Key? key}) : super(key: key);
+  String _playerName;
+
+  GameScreen(String playerName) : _playerName = playerName;
 
   Widget build(BuildContext context) {
     return Scaffold(
