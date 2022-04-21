@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:letroca_clone_flutter/ranking.dart';
 import 'view/GameScreen.dart';
 
 class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +38,13 @@ class Home extends StatelessWidget {
                           Color.fromARGB(255, 255, 255, 255))),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Ranking(),
+                        ));
+                  },
                   child: Text('SCORE', style: TextStyle(color: Colors.black)),
                   style: ButtonStyle(
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
