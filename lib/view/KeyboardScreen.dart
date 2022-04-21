@@ -68,15 +68,19 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
             itemBuilder: (context, index) {
               return Container(
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 7,
+                  width: MediaQuery.of(context).size.width / 5,
                   child: Container(
+                    alignment: Alignment.center,
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black),
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: Text(this._lettersToFormWords[index],
                           textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 25, color: Colors.black))),
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.black,
+                          ))),
                 ),
               );
             }),
@@ -116,6 +120,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 ),
                 child: Text(
                   this._words[index],
+                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, color: Colors.black),
                 ));
           },

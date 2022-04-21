@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const GameScreen(),
+                          builder: (context) => GameScreen('playerName'),
                         ));
                   },
                   child: Text('START', style: TextStyle(color: Colors.black)),
