@@ -42,7 +42,7 @@ class Home extends StatelessWidget {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Ranking(),
+                          builder: (context) => Ranking(),
                         ));
                   },
                   child: Text('SCORE', style: TextStyle(color: Colors.black)),

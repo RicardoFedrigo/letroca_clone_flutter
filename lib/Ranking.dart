@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/src/widgets/container.dart';
+import 'package:letroca_clone_flutter/Modules/RankJson/ModelRank.dart';
+import 'package:letroca_clone_flutter/Modules/RankJson/RankController.dart';
 import 'dart:core';
 import 'home.dart';
+import 'dart:ui';
 
-class Ranking extends StatelessWidget {
-  const Ranking({Key? key}) : super(key: key);
+String dataAgora() {
+  final now = DateTime.now();
+  final DataAgoraDia = now.day;
+  final DataAgoraMes = now.month;
+  final DataAgoraAno = now.year;
+  final DataAgoraHora = now.minute;
 
-  String dataAgora() {
-    final now = DateTime.now();
-    final DataAgoraDia = now.day;
-    final DataAgoraMes = now.month;
-    final DataAgoraAno = now.year;
-    final DataAgoraHora = now.minute;
+  return '$DataAgoraDia/$DataAgoraMes/$DataAgoraAno';
+}
 
-    return '$DataAgoraDia/$DataAgoraMes/$DataAgoraAno';
+class Ranking extends StatefulWidget {
+  @override
+  State<Ranking> createState() => _RankingState();
+}
+
+class _RankingState extends State<Ranking> {
+  final RankController controller = RankController();
+
+  @override
+  void initState() {
+    controller.getAllRanks();
+    super.initState();
   }
 
   @override
@@ -39,9 +53,9 @@ class Ranking extends StatelessWidget {
                 SizedBox(
                   width: 15.0,
                 ),
-                Center(child: NomeCampos('LEVELS')),
+                Center(child: NomeCampos('LEVEL')),
                 SizedBox(
-                  width: 10.0,
+                  width: 20.0,
                 ),
                 Center(child: NomeCampos('TEMPO')),
                 SizedBox(
