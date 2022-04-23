@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/src/widgets/container.dart';
+import 'dart:convert';
 import 'package:letroca_clone_flutter/Modules/RankJson/ModelRank.dart';
-import 'package:letroca_clone_flutter/Modules/RankJson/RankController.dart';
+import 'package:http/http.dart' as http;
 import 'dart:core';
 import 'home.dart';
 import 'dart:ui';
@@ -23,12 +24,27 @@ class Ranking extends StatefulWidget {
 }
 
 class _RankingState extends State<Ranking> {
-  final RankController controller = RankController();
+  late ValueNotifier<List<RankJson>> _rank;
+
+  Future<List<RankJson>> _getRank() async {
+    // ignore: deprecated_member_use
+
+    List<RankJson> listRank = [];
+    String url =
+        'https://my-json-server.typicode.com/RicardoFedrigo/letroca_clone_flutter/rank';
+    final response = await http.get(Uri.parse(url));
+    var decodejson = jsonDecode(response.body);
+
+    decodejson.forEach((item) => listRank.add(RankJson.fromJson(item)));
+    return listRank;
+  }
 
   @override
   void initState() {
-    controller.getAllRanks();
     super.initState();
+    _getRank().then((map) {
+      _rank.value = map;
+    });
   }
 
   @override
@@ -70,11 +86,11 @@ class _RankingState extends State<Ranking> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Center(child: linhas('1', '100', '2', '300', false)),
-                Center(child: linhas('2', '100', '2', '300', false)),
-                Center(child: linhas('3', '100', '2', '300', true)),
-                Center(child: linhas('4', '100', '2', '300', false)),
-                Center(child: linhas('5', '100', '2', '300', false))
+                Center(child: _linhas(0)),
+                Center(child: _linhas(1)),
+                Center(child: _linhas(2)),
+                Center(child: _linhas(3)),
+                Center(child: _linhas(4)),
               ],
             ),
             SizedBox(
@@ -105,6 +121,18 @@ class _RankingState extends State<Ranking> {
     );
   }
 
+  Row _linhas(int index) {
+    late List<RankJson> rank = _rank.value;
+
+    return linhas(
+        _rank.value[index].position.toString(),
+        _rank.value[index].pontos.toString(),
+        _rank.value[index].level.toString(),
+        _rank.value[index].tempo.toString(),
+        _rank.value[index].date.toString(),
+        false);
+  }
+
   Container NomeCampos(String nome) {
     return Container(
       child: Text(
@@ -127,8 +155,8 @@ class _RankingState extends State<Ranking> {
     );
   }
 
-  Row linhas(
-      String position, String Pontos, String levels, String Tempo, bool cor) {
+  Row linhas(String position, String Pontos, String levels, String Tempo,
+      String date, bool cor) {
     int cors = 255;
     if (cor) cors = 100;
 
@@ -177,7 +205,7 @@ class _RankingState extends State<Ranking> {
         ContainerLinhas(Pontos),
         ContainerLinhas(levels),
         ContainerLinhas(Tempo),
-        ContainerLinhas(dataAgora()),
+        ContainerLinhas(date),
       ],
     );
   }
