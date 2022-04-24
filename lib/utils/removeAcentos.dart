@@ -1,4 +1,5 @@
 String removerAcentos(String str) {
+
   var comAcento =
       'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
   var semAcento =
@@ -7,6 +8,6 @@ String removerAcentos(String str) {
   for (int i = 0; i < comAcento.length; i++) {
     str = str.replaceAll(comAcento[i], semAcento[i]);
   }
-
-  return str.toLowerCase();
+  str = str.replaceAll(' ', '');
+  return (str.toLowerCase());
 }

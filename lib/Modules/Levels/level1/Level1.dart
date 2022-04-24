@@ -23,7 +23,7 @@ class Level1 extends LevelAbastraction {
   Word findWord(String word) {
     int index = this.wordsToDiscover.indexWhere(
         (element) => removerAcentos(element.word) == removerAcentos(word));
-
+    
     return this.wordsToDiscover[index];
   }
 
@@ -40,15 +40,21 @@ class Level1 extends LevelAbastraction {
 
   @override
   bool wordExists(String word) {
-    //Nota ver se ele devolve o uma copia do objeto ou seja se ele altera o objeto que esta no array
-    Word wordExist = this.findWord(word);
+    int index = this.wordsToDiscover.indexWhere(
+        (element) { 
+          print({element:element.word,"word":word});
+          return removerAcentos(element.word) == removerAcentos(word);});
+    print(index);
 
-    if (wordExist == null) {
-      return false;
-    }
+    if(index == -1) return false;
+    print("index: $index");
+    print(this.wordsToDiscover[index].isFound);
+    if(this.wordsToDiscover[index].isFound) return true; 
+    
 
-    wordExist.isFound = true;
-    this.setPoints(wordExist.word.length);
+    print("wordExists: ${this.wordsToDiscover[index].word}");
+    this.wordsToDiscover[index].isFound = true;
+    this.setPoints(this.wordsToDiscover[index].word.length);
 
     return true;
   }

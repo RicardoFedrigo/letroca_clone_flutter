@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:letroca_clone_flutter/Components/CountDownTimer.dart';
@@ -27,14 +29,17 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void verifyWord(String word) {
-    bool wordExist = _actualLevel.wordExists(word);
-    if (wordExist) {
-      _actualLevel.discovedWord(word);
+    if (word != "") {
+      _actualLevel.wordExists(word);
+
+      setState(() {
+        _wordsInlevel = _actualLevel.getWordsToDiscover();
+      });
     }
   }
 
   WordsToFindInScreen _wordsToFindInScreen() {
-    return  WordsToFindInScreen(_wordsInlevel);
+    return WordsToFindInScreen(_wordsInlevel);
   }
 
   @override
@@ -71,15 +76,14 @@ class _GameScreenState extends State<GameScreen> {
       ),
       body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
               alignment: Alignment.topCenter,
-              child :_wordsToFindInScreen(),
+              child: _wordsToFindInScreen(),
             ),
             Container(
-                child: KeyboardScreen(
-                    _actualLevel.getListaLetter(), verifyWord)),
+                child:
+                    KeyboardScreen(_actualLevel.getListaLetter(), verifyWord)),
           ],
         ),
       ),
