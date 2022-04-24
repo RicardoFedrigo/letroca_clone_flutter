@@ -4,11 +4,21 @@ import 'package:letroca_clone_flutter/Components/wordsScreen/WordToDIscover.dart
 
 import '../Modules/GameLogic/Word.dart';
 
-class WordsToFindInScreen extends StatelessWidget {
+class WordsToFindInScreen extends StatefulWidget {
   List<Word> _words;
 
   WordsToFindInScreen(List<Word> this._words);
-  
+
+  @override
+  State<WordsToFindInScreen> createState() => _WordsToFindInScreenState(this._words);
+}
+
+class _WordsToFindInScreenState extends State<WordsToFindInScreen> {
+
+  List<Word> _words;
+
+  _WordsToFindInScreenState(List<Word> this._words);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +26,7 @@ class WordsToFindInScreen extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.width,
         child: ListView(
-          children: List.generate(this._words.length, (index) => WordToDiscover(_words[index])),
+          children: List.generate(_words.length, (index) => WordToDiscover(_words[index])),
         ),
       ),
     );
