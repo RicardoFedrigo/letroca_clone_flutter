@@ -6,6 +6,7 @@ class GameLogic {
   GameLogic();
 
   int actualLevel = 0;
+  
   List<LevelAbastraction> levels = [new Level1()];
 
   int totalPoints = 0;

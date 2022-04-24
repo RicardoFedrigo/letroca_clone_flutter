@@ -24,25 +24,31 @@ class _GameScreenState extends State<GameScreen> {
 
   late LevelAbastraction _actualLevel;
   late List<Word> _wordsInlevel;
-  late int _totalPoints;
+  int _totalPoints = 0;
+  double _percent = 0;
 
   _GameScreenState() {
     _actualLevel = _gameLogic.getLevel();
     _wordsInlevel = _actualLevel.getWordsToDiscover();
-    _totalPoints = 0;
+    _totalPoints;
   }
 
   void verifyWord(String word) {
-    var wordWithOutWitheSpace = word.replaceAll(" ", "");
-    if (wordWithOutWitheSpace != "") {
-      bool wordExist = _actualLevel.wordExists(wordWithOutWitheSpace);
+    if (word != "") {
+      bool wordExist = _actualLevel.wordExists(word);
       if (wordExist) {
         setState(() {
           _totalPoints = _actualLevel.getPoints();
           _wordsInlevel = _actualLevel.getWordsToDiscover();
+          _percent = _percentDiscoverdWord();
         });
       }
     }
+    print({"percent": _percent, "totalPoints": _totalPoints});
+  }
+
+  double _percentDiscoverdWord() {
+    return _actualLevel.numberDiscovedWord() / _wordsInlevel.length;
   }
 
   WordsToFindInScreen _wordsToFindInScreen() {
@@ -64,27 +70,29 @@ class _GameScreenState extends State<GameScreen> {
           Container(
             margin: const EdgeInsets.all(10),
             padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: Colors.black)),
             child: Text(
               "$_totalPoints",
               style: TextStyle(fontSize: 25, color: Colors.black),
             ),
           ),
           Container(
-            child: Padding(
-              padding: EdgeInsets.all(15.0),
-              child: new LinearPercentIndicator(
-                width: 100.0,
-                animation: true,
-                lineHeight: 20.0,
-                animationDuration: 2500,
-                percent: 0.8,
-                center: Text("80.0%"),
-                linearStrokeCap: LinearStrokeCap.roundAll,
-                progressColor: Colors.yellow,
-              ),
-            ),
-          ),
+              child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: _percent < 0.5 ? new LinearPercentIndicator(
+              width: 100.0,
+              animation: true,
+              lineHeight: 20.0,
+              animationDuration: 2500,
+              percent: _percent,
+              center: Text((_percent*100).toString() + "%"),
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: Colors.yellow,
+              backgroundColor: Colors.white,
+            ): Text("Next level"),
+          )),
         ],
       ),
       body: Container(

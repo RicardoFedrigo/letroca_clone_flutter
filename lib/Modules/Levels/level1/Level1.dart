@@ -11,11 +11,11 @@ class Level1 extends LevelAbastraction {
   
   
   Level1() {
-    var words = [new WordsA()];
-    Random random = new Random();
-    var randomWord = random.nextInt(words[0].words.length);
-    var wordsChoose = words[randomWord];
-    this.setListOfWords(wordsChoose);
+    // var words = [new WordsA()];
+    // Random random = new Random();
+    // var randomWord = random.nextInt(words[0].words.length);
+    // var wordsChoose = words[randomWord];
+    this.setListOfWords(new WordsA());
   }
 
   @override
@@ -46,6 +46,9 @@ class Level1 extends LevelAbastraction {
     if (this.wordsToDiscover[index].isFound) return false;
 
     this.wordsToDiscover[index].isFound = true;
+
+    this.discovedWord.add(this.wordsToDiscover[index]);
+
     this.setPoints(this.wordsToDiscover[index].word.length);
 
     return true;
