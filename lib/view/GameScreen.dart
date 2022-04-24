@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:letroca_clone_flutter/Components/CountDownTimer.dart';
+import 'package:letroca_clone_flutter/Modules/GameLogic/Word.dart';
 import 'package:letroca_clone_flutter/view/KeyboardScreen.dart';
 import 'package:letroca_clone_flutter/view/PlayerName.dart';
 
@@ -48,7 +49,8 @@ class GameScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               alignment: Alignment.topCenter,
-              child: WordsToFindInScreen(),
+              child: WordsToFindInScreen(
+                  [new Word("Teste1"), new Word("Teste2"), new Word("Teste3")]),
             ),
             Container(
                 alignment: Alignment.bottomCenter, child: KeyboardScreen())

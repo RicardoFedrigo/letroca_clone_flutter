@@ -1,25 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:letroca_clone_flutter/view/WordToDIscover.dart';
+
+import '../Modules/GameLogic/Word.dart';
 
 class WordsToFindInScreen extends StatelessWidget {
+  List<Word> _words;
+
+  WordsToFindInScreen(this._words);
+  
   @override
   Widget build(BuildContext context) {
     return Container(
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.width,
-        child: GridView.count(
-          crossAxisCount: 2,
-
-          children: List.generate(100, (index) {
-            return Center(
-              heightFactor: 1,
-              child: Text(
-                'Item $index'
-                ,
-                style: TextStyle(color: Colors.black.withOpacity(0.6)),
-              ),
-            );
+        child: ListView(
+          children: List.generate(this._words.length, (index) {
+            return WordToDiscover(this._words[index]);
           }),
         ),
       ),

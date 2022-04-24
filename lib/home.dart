@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:letroca_clone_flutter/ranking.dart';
+import 'Ranking.dart';
 import 'view/GameScreen.dart';
 
 class Home extends StatelessWidget {

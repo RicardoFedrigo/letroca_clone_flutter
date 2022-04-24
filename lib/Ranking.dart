@@ -26,25 +26,24 @@ class Ranking extends StatefulWidget {
 class _RankingState extends State<Ranking> {
   late ValueNotifier<List<RankJson>> _rank;
 
-  Future<List<RankJson>> _getRank() async {
-    // ignore: deprecated_member_use
+  @override
+  void initState() {
+    super.initState();
+    () async => this._getRank();
+  }
 
+  Future<List<RankJson>> _getRank() async {
     List<RankJson> listRank = [];
     String url =
         'https://my-json-server.typicode.com/RicardoFedrigo/letroca_clone_flutter/rank';
     final response = await http.get(Uri.parse(url));
     var decodejson = jsonDecode(response.body);
 
-    decodejson.forEach((item) => listRank.add(RankJson.fromJson(item)));
-    return listRank;
-  }
+    print(decodejson);
 
-  @override
-  void initState() {
-    super.initState();
-    _getRank().then((map) {
-      _rank.value = map;
-    });
+    this._rank =
+        decodejson.forEach((item) => listRank.add(RankJson.fromJson(item)));
+    return listRank;
   }
 
   @override
@@ -86,11 +85,11 @@ class _RankingState extends State<Ranking> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Center(child: _linhas(0)),
-                Center(child: _linhas(1)),
-                Center(child: _linhas(2)),
-                Center(child: _linhas(3)),
-                Center(child: _linhas(4)),
+                Center(child: this._linhas(0)),
+                // Center(child: this._linhas(1)),
+                // Center(child: this._linhas(2)),
+                // Center(child: this._linhas(3)),
+                // Center(child: this._linhas(4)),
               ],
             ),
             SizedBox(
@@ -122,14 +121,12 @@ class _RankingState extends State<Ranking> {
   }
 
   Row _linhas(int index) {
-    late List<RankJson> rank = _rank.value;
-
     return linhas(
-        _rank.value[index].position.toString(),
-        _rank.value[index].pontos.toString(),
-        _rank.value[index].level.toString(),
-        _rank.value[index].tempo.toString(),
-        _rank.value[index].date.toString(),
+        this._rank.value[index].position.toString(),
+        this._rank.value[index].pontos.toString(),
+        this._rank.value[index].level.toString(),
+        this._rank.value[index].tempo.toString(),
+        this._rank.value[index].date.toString(),
         false);
   }
 
@@ -159,6 +156,8 @@ class _RankingState extends State<Ranking> {
       String date, bool cor) {
     int cors = 255;
     if (cor) cors = 100;
+
+    return Row(children: [Text("TESTE"), Text("TESTE"), Text("TESTE")]);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

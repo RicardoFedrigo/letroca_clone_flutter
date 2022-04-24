@@ -19,45 +19,37 @@ class _WordToDiscoverState extends State<WordToDiscover> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // child: GridView.builder(
-      //   padding: EdgeInsets.only(top: 20),
-      //   shrinkWrap: true,
-      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      //     crossAxisCount: 2,
-      //     crossAxisSpacing: 1.0,
-      //     mainAxisSpacing: 2.0,
-      //   ),
-      //   itemCount: this._wordToDiscover.word.length,
-      //   itemBuilder: (context, index) {
-      //     return OutlinedButton(
-      //         onPressed: null,
-      //         style: ButtonStyle(
-      //           backgroundColor:
-      //               MaterialStateProperty.resolveWith<Color>((states) {
-      //             if (states.contains(MaterialState.disabled)) {
-      //               return Colors.white;
-      //             }
-      //             return Colors.white;
-      //           }),
-      //           overlayColor:
-      //               MaterialStateProperty.resolveWith<Color>((states) {
-      //             if (states.contains(MaterialState.pressed)) {
-      //               return Colors.amber;
-      //             }
-      //             return Colors.transparent;
-      //           }),
-      //           shape: MaterialStateProperty.all(RoundedRectangleBorder(
-      //               borderRadius: BorderRadius.vertical(
-      //                   top: Radius.circular(10),
-      //                   bottom: Radius.circular(10)))),
-      //         ),
-      //         child: Text(
-      //           this._wordToDiscover.word[index],
-      //           style: TextStyle(fontSize: 20, color: Colors.black),
-      //         ));
-      //   },
-      // ),
-      child: Text("PALAVRA PARA DESCOBRIR"),
+      child: GridView.builder(
+          padding: EdgeInsets.only(top: 20),
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: this._wordToDiscover.length < 10
+                ? this._wordToDiscover.length
+                : 10,
+            crossAxisSpacing: 1.0,
+            mainAxisSpacing: 2.0,
+          ),
+          itemCount: this._wordToDiscover.length,
+          itemBuilder: (context, index) {
+            return Container(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 5,
+                child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: Text(this._wordToDiscover.letter(index),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.black,
+                        ))),
+              ),
+            );
+          }),
     );
   }
 }
