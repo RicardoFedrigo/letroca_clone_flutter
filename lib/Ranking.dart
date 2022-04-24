@@ -4,9 +4,13 @@ import 'package:flutter/src/widgets/container.dart';
 import 'dart:convert';
 import 'package:letroca_clone_flutter/Modules/RankJson/ModelRank.dart';
 import 'package:http/http.dart' as http;
+import 'package:letroca_clone_flutter/values/keyrank.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:core';
 import 'home.dart';
+import 'pegarRank.dart';
 import 'dart:ui';
+import 'CriarJson.dart';
 
 String dataAgora() {
   final now = DateTime.now();
@@ -18,33 +22,51 @@ String dataAgora() {
   return '$DataAgoraDia/$DataAgoraMes/$DataAgoraAno';
 }
 
+RankJson position1 = new RankJson();
+RankJson position2 = new RankJson();
+RankJson position3 = new RankJson();
+RankJson position4 = new RankJson();
+RankJson position5 = new RankJson();
+
 class Ranking extends StatefulWidget {
   @override
   State<Ranking> createState() => _RankingState();
 }
 
 class _RankingState extends State<Ranking> {
-  late ValueNotifier<List<RankJson>> _rank;
-
-  Future<List<RankJson>> _getRank() async {
-    // ignore: deprecated_member_use
-
-    List<RankJson> listRank = [];
-    String url =
-        'https://my-json-server.typicode.com/RicardoFedrigo/letroca_clone_flutter/rank';
-    final response = await http.get(Uri.parse(url));
-    var decodejson = jsonDecode(response.body);
-
-    decodejson.forEach((item) => listRank.add(RankJson.fromJson(item)));
-    return listRank;
-  }
-
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    _getRank().then((map) {
-      _rank.value = map;
-    });
+
+    rank();
+  }
+
+  void rank() async {
+    RankJson ranks = await getRank();
+    print(ranks);
+    if (ranks.position == 0) {
+      position1 = ranks;
+      position2 = ranks;
+      position3 = ranks;
+      position4 = ranks;
+      position5 = ranks;
+    }
+    if (ranks.position == 1) {
+      position1 = ranks;
+    }
+    if (ranks.position == 2) {
+      position2 = ranks;
+    }
+    if (ranks.position == 3) {
+      position3 = ranks;
+    }
+    if (ranks.position == 4) {
+      position4 = ranks;
+    }
+    if (ranks.position == 5) {
+      position5 = ranks;
+    }
   }
 
   @override
@@ -86,11 +108,11 @@ class _RankingState extends State<Ranking> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Center(child: _linhas(0)),
-                Center(child: _linhas(1)),
-                Center(child: _linhas(2)),
-                Center(child: _linhas(3)),
-                Center(child: _linhas(4)),
+                Center(child: _linhas(position1)),
+                Center(child: _linhas(position2)),
+                Center(child: _linhas(position3)),
+                Center(child: _linhas(position4)),
+                Center(child: _linhas(position5)),
               ],
             ),
             SizedBox(
@@ -121,16 +143,24 @@ class _RankingState extends State<Ranking> {
     );
   }
 
-  Row _linhas(int index) {
-    late List<RankJson> rank = _rank.value;
-
-    return linhas(
-        _rank.value[index].position.toString(),
-        _rank.value[index].pontos.toString(),
-        _rank.value[index].level.toString(),
-        _rank.value[index].tempo.toString(),
-        _rank.value[index].date.toString(),
-        false);
+  Row _linhas(RankJson teste) {
+    if (teste.position == null) {
+      return Row(
+        children: [
+          Center(
+              child: Center(
+                  child: CircularProgressIndicator(color: Colors.black87)))
+        ],
+      );
+    } else {
+      return linhas(
+          teste.position.toString(),
+          teste.pontos.toString(),
+          teste.level.toString(),
+          teste.tempo.toString(),
+          teste.date.toString(),
+          false);
+    }
   }
 
   Container NomeCampos(String nome) {
