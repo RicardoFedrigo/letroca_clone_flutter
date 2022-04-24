@@ -11,6 +11,8 @@ abstract class LevelAbastraction {
   List<Word> wordsToDiscover = [];
   @protected
   int points = 0;
+  @protected
+  List<Word> discovedWord = [];
 
 
   List<String> getListaLetter();
@@ -18,6 +20,8 @@ abstract class LevelAbastraction {
   void setListOfWords(IWords words);
   Word findWord(String word);
   bool wordExists(String word);
-  void discovedWord(String word);
+  List<Word> getDiscovedWord();
+  int numberDiscovedWord();
   void setPoints(int points);
+  int getPoints();
 }

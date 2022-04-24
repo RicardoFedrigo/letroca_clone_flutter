@@ -8,22 +8,21 @@ import '../../../utils/removeAcentos.dart';
 import '../IWords.dart';
 
 class Level1 extends LevelAbastraction {
+  
+  
   Level1() {
     var words = [new WordsA()];
-
     Random random = new Random();
-    // var randomWord = random.nextInt(words[0].words.length);
-    // var wordsChoose = words[randomWord];
-    // this.setListOfWords(wordsChoose);
-
-    this.setListOfWords(words[0]);
+    var randomWord = random.nextInt(words[0].words.length);
+    var wordsChoose = words[randomWord];
+    this.setListOfWords(wordsChoose);
   }
 
   @override
   Word findWord(String word) {
     int index = this.wordsToDiscover.indexWhere(
         (element) => removerAcentos(element.word) == removerAcentos(word));
-    
+
     return this.wordsToDiscover[index];
   }
 
@@ -41,18 +40,11 @@ class Level1 extends LevelAbastraction {
   @override
   bool wordExists(String word) {
     int index = this.wordsToDiscover.indexWhere(
-        (element) { 
-          print({element:element.word,"word":word});
-          return removerAcentos(element.word) == removerAcentos(word);});
-    print(index);
+        (element) => removerAcentos(element.word) == removerAcentos(word));
 
-    if(index == -1) return false;
-    print("index: $index");
-    print(this.wordsToDiscover[index].isFound);
-    if(this.wordsToDiscover[index].isFound) return true; 
-    
+    if (index == -1) return false;
+    if (this.wordsToDiscover[index].isFound) return false;
 
-    print("wordExists: ${this.wordsToDiscover[index].word}");
     this.wordsToDiscover[index].isFound = true;
     this.setPoints(this.wordsToDiscover[index].word.length);
 
@@ -70,9 +62,19 @@ class Level1 extends LevelAbastraction {
   }
 
   @override
-  void discovedWord(String word) {
-    int index = this.wordsToDiscover.indexWhere(
-        (element) => removerAcentos(element.word) == removerAcentos(word));
-    this.wordsToDiscover[index].isFound = true;
+  int getPoints() {
+    return this.points;
+  }
+  
+  @override
+  int numberDiscovedWord() {
+
+    return this.discovedWord.length;
+  }
+  
+  @override
+  List<Word> getDiscovedWord() {
+
+    return this.discovedWord;
   }
 }

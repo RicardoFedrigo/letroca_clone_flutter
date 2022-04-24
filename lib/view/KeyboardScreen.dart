@@ -31,7 +31,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   void clearLetter() {
     List<String> empetyLetter =
         this._lettersToFormWords.map((element) => " ").toList();
-    print(empetyLetter);
     setState(() {
       this._lettersToFormWords = empetyLetter;
     });

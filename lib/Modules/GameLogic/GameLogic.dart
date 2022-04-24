@@ -14,6 +14,10 @@ class GameLogic {
     return this.levels[this.actualLevel];
   }
 
+  void addPoints(int points) {
+    this.totalPoints += points;
+  }
+
   void nextLevel() {
     this.actualLevel++;
     this.totalPoints += this.levels[this.actualLevel].points;

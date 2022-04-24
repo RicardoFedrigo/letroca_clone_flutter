@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:letroca_clone_flutter/view/WordToDIscover.dart';
+import 'package:letroca_clone_flutter/Components/wordsScreen/WordToDIscover.dart';
 
 import '../Modules/GameLogic/Word.dart';
 
