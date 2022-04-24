@@ -1,19 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:letroca_clone_flutter/Components/KeyBoardScreen/ActionGameButton.dart';
 
 class KeyboardScreen extends StatefulWidget {
   List<String> _lettersInWord;
+   final Function _verifyWord;
 
-  KeyboardScreen(this._lettersInWord);
+  KeyboardScreen(this._lettersInWord,this._verifyWord);
 
   @override
   State<KeyboardScreen> createState() =>
-      _KeyboardScreenState(this._lettersInWord);
+      _KeyboardScreenState(this._lettersInWord,this._verifyWord);
 }
 
 class _KeyboardScreenState extends State<KeyboardScreen> {
   List<String> _words;
-  _KeyboardScreenState(this._words) {
+  final Function _verifyWord;
+  _KeyboardScreenState(this._words,this._verifyWord) {
     for (var i = 0; i < 8; i++) {
       this._lettersToFormWords.add(" ");
     }
@@ -32,6 +35,10 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     setState(() {
       this._lettersToFormWords = empetyLetter;
     });
+  }
+
+  void verifyWord() {
+    this._verifyWord(this._lettersToFormWords.join());
   }
 
   List<String> _lettersToFormWords = [];
@@ -110,33 +117,21 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 ));
           },
         ),
-        OutlinedButton(
-            onPressed: () {
-              this.clearLetter();
-            },
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.resolveWith<Color>((states) {
-                if (states.contains(MaterialState.disabled)) {
-                  return Colors.white;
-                }
-                return Colors.white;
-              }),
-              overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
-                if (states.contains(MaterialState.pressed)) {
-                  return Colors.amber;
-                }
-                return Colors.transparent;
-              }),
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(10), bottom: Radius.circular(10)))),
+        Container(
+          margin: EdgeInsets.only(top: 40),
+          child: Row(
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+            ActionGameButton(
+              action: this.clearLetter,
+              text: "Clear",
             ),
-            child: Text(
-              "Clear",
-              style: TextStyle(fontSize: 20, color: Colors.black),
+            ActionGameButton(
+              action: this.verifyWord,
+              text: "Verify",
             )
-          )
+          ]),
+        ),
       ],
     ));
   }

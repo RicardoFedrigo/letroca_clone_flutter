@@ -8,21 +8,36 @@ import 'package:letroca_clone_flutter/view/KeyboardScreen.dart';
 import '../Modules/Levels/LevelAbstration.dart';
 import 'WordsToFindInScreen.dart';
 
-class GameScreen extends StatelessWidget {
-  GameLogic _gameLogic = new GameLogic();
+class GameScreen extends StatefulWidget {
+  GameScreen();
+
+  @override
+  State<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  final GameLogic _gameLogic = new GameLogic();
 
   late LevelAbastraction _actualLevel;
+  late List<Word> _wordsInlevel;
 
-  GameScreen() {
+  _GameScreenState() {
     _actualLevel = _gameLogic.getLevel();
+    _wordsInlevel = _actualLevel.getWordsToDiscover();
   }
 
-  _teste(bool isFound, String x) {
-    Word word = new Word(x);
-    word.isFound = isFound;
-    return word;
+  void verifyWord(String word) {
+    bool wordExist = _actualLevel.wordExists(word);
+    if (wordExist) {
+      _actualLevel.discovedWord(word);
+    }
   }
 
+  WordsToFindInScreen _wordsToFindInScreen() {
+    return  WordsToFindInScreen(_wordsInlevel);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green,
@@ -60,10 +75,11 @@ class GameScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               alignment: Alignment.topCenter,
-              child:
-                  WordsToFindInScreen(this._actualLevel.getWordsToDiscover()),
+              child :_wordsToFindInScreen(),
             ),
-            Container(child: KeyboardScreen(this._actualLevel.getListaLetter()))
+            Container(
+                child: KeyboardScreen(
+                    _actualLevel.getListaLetter(), verifyWord)),
           ],
         ),
       ),

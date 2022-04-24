@@ -52,14 +52,21 @@ class Level1 extends LevelAbastraction {
 
     return true;
   }
-  
+
   @override
   List<String> getListaLetter() {
     return this.listaLetter;
   }
-  
+
   @override
   List<Word> getWordsToDiscover() {
     return this.wordsToDiscover;
+  }
+
+  @override
+  void discovedWord(String word) {
+    int index = this.wordsToDiscover.indexWhere(
+        (element) => removerAcentos(element.word) == removerAcentos(word));
+    this.wordsToDiscover[index].isFound = true;
   }
 }

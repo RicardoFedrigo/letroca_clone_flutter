@@ -16,7 +16,7 @@ class WordsToFindInScreen extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.width,
         child: ListView(
-          children: List.generate(5, (index) => WordToDiscover(_words[index])),
+          children: List.generate(this._words.length, (index) => WordToDiscover(_words[index])),
         ),
       ),
     );

@@ -18,5 +18,6 @@ abstract class LevelAbastraction {
   void setListOfWords(IWords words);
   Word findWord(String word);
   bool wordExists(String word);
+  void discovedWord(String word);
   void setPoints(int points);
 }

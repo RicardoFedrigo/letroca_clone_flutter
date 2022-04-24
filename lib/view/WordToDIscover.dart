@@ -14,6 +14,8 @@ class WordToDiscover extends StatefulWidget {
 class _WordToDiscoverState extends State<WordToDiscover> {
   Word _wordToDiscover;
 
+  bool _isFound = false;
+
   _WordToDiscoverState(Word this._wordToDiscover);
 
   @override
@@ -31,7 +33,7 @@ class _WordToDiscoverState extends State<WordToDiscover> {
                           color: Colors.white,
                           ),
                       alignment: Alignment.center,
-                      child:  this._wordToDiscover.isFound
+                      child:  _isFound
                           ? Text(this._wordToDiscover.getLetter(index),
                               style: TextStyle(
                                 height: 0.8,
