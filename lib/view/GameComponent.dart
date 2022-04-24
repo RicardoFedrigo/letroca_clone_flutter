@@ -6,6 +6,6 @@ class GameComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child:GameScreen("TESTE"));
+    return Container(child:GameScreen());
   }
 }

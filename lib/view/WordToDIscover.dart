@@ -19,37 +19,28 @@ class _WordToDiscoverState extends State<WordToDiscover> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: GridView.builder(
-          padding: EdgeInsets.only(top: 20),
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: this._wordToDiscover.length < 10
-                ? this._wordToDiscover.length
-                : 10,
-            crossAxisSpacing: 1.0,
-            mainAxisSpacing: 2.0,
-          ),
-          itemCount: this._wordToDiscover.length,
-          itemBuilder: (context, index) {
-            return Container(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width / 5,
-                child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    child: Text(this._wordToDiscover.letter(index),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                        ))),
-              ),
-            );
-          }),
-    );
+        child: Row(
+            children: List.generate(
+                this._wordToDiscover.length,
+                (index) => Container(
+                      margin: const EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black12),
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                          color: Colors.white,
+                          ),
+                      alignment: Alignment.center,
+                      child:  this._wordToDiscover.isFound
+                          ? Text(this._wordToDiscover.getLetter(index),
+                              style: TextStyle(
+                                height: 0.8,
+                                fontSize: 18,
+                              ))
+                          : SizedBox(
+                              height: 11.0,
+                              width: 11.0,
+                            ),
+                    ))));
   }
 }

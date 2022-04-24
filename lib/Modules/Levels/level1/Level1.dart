@@ -4,6 +4,7 @@ import 'package:letroca_clone_flutter/Modules/GameLogic/Word.dart';
 import 'package:letroca_clone_flutter/Modules/Levels/LevelAbstration.dart';
 import 'package:letroca_clone_flutter/Modules/Levels/level1/Words/WordsA.dart';
 
+import '../../../utils/removeAcentos.dart';
 import '../IWords.dart';
 
 class Level1 extends LevelAbastraction {
@@ -11,35 +12,24 @@ class Level1 extends LevelAbastraction {
     var words = [new WordsA()];
 
     Random random = new Random();
-    var randomWord = random.nextInt(words[0].words.length);
-    var wordsChoose = words[randomWord];
-    this.setListOfWords(wordsChoose);
-  }
+    // var randomWord = random.nextInt(words[0].words.length);
+    // var wordsChoose = words[randomWord];
+    // this.setListOfWords(wordsChoose);
 
-  String removerAcentos(String str) {
-    var comAcento =
-        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
-    var semAcento =
-        'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
-
-    for (int i = 0; i < comAcento.length; i++) {
-      str = str.replaceAll(comAcento[i], semAcento[i]);
-    }
-
-    return str.toLowerCase();
+    this.setListOfWords(words[0]);
   }
 
   @override
   Word findWord(String word) {
-    int index = this.wordToDiscover.indexWhere(
+    int index = this.wordsToDiscover.indexWhere(
         (element) => removerAcentos(element.word) == removerAcentos(word));
 
-    return this.wordToDiscover[index];
+    return this.wordsToDiscover[index];
   }
 
   @override
   void setListOfWords(IWords words) {
-    this.wordToDiscover = words.getWords();
+    this.wordsToDiscover = words.getWords();
     this.listaLetter = words.getLetters();
   }
 
@@ -61,5 +51,15 @@ class Level1 extends LevelAbastraction {
     this.setPoints(wordExist.word.length);
 
     return true;
+  }
+  
+  @override
+  List<String> getListaLetter() {
+    return this.listaLetter;
+  }
+  
+  @override
+  List<Word> getWordsToDiscover() {
+    return this.wordsToDiscover;
   }
 }

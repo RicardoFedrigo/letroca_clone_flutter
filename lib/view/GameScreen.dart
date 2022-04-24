@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:letroca_clone_flutter/Components/CountDownTimer.dart';
+import 'package:letroca_clone_flutter/Modules/GameLogic/GameLogic.dart';
 import 'package:letroca_clone_flutter/Modules/GameLogic/Word.dart';
 import 'package:letroca_clone_flutter/view/KeyboardScreen.dart';
-import 'package:letroca_clone_flutter/view/PlayerName.dart';
 
+import '../Modules/Levels/LevelAbstration.dart';
 import 'WordsToFindInScreen.dart';
 
 class GameScreen extends StatelessWidget {
-  String _playerName;
+  GameLogic _gameLogic = new GameLogic();
 
-  GameScreen(String playerName) : _playerName = playerName;
+  late LevelAbastraction _actualLevel;
+
+  GameScreen() {
+    _actualLevel = _gameLogic.getLevel();
+  }
+
+  _teste(bool isFound, String x) {
+    Word word = new Word(x);
+    word.isFound = isFound;
+    return word;
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +60,10 @@ class GameScreen extends StatelessWidget {
           children: <Widget>[
             Container(
               alignment: Alignment.topCenter,
-              child: WordsToFindInScreen(
-                  [new Word("Teste1"), new Word("Teste2"), new Word("Teste3")]),
+              child:
+                  WordsToFindInScreen(this._actualLevel.getWordsToDiscover()),
             ),
-            Container(
-                alignment: Alignment.bottomCenter, child: KeyboardScreen())
+            Container(child: KeyboardScreen(this._actualLevel.getListaLetter()))
           ],
         ),
       ),

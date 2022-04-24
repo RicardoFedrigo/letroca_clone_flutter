@@ -2,14 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class KeyboardScreen extends StatefulWidget {
-  const KeyboardScreen({Key? key}) : super(key: key);
+  List<String> _lettersInWord;
+
+  KeyboardScreen(this._lettersInWord);
 
   @override
-  State<KeyboardScreen> createState() => _KeyboardScreenState();
+  State<KeyboardScreen> createState() =>
+      _KeyboardScreenState(this._lettersInWord);
 }
 
 class _KeyboardScreenState extends State<KeyboardScreen> {
-  _KeyboardScreenState() {
+  List<String> _words;
+  _KeyboardScreenState(this._words) {
     for (var i = 0; i < 8; i++) {
       this._lettersToFormWords.add(" ");
     }
@@ -30,23 +34,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
     });
   }
 
-  List<String> _words = [
-    'a',
-    'b',
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n"
-  ];
-
   List<String> _lettersToFormWords = [];
   @override
   Widget build(BuildContext context) {
@@ -58,9 +45,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: this._lettersToFormWords.length < 10
-                  ? this._lettersToFormWords.length
-                  : 10,
+              crossAxisCount: this._lettersToFormWords.length,
               crossAxisSpacing: 1.0,
               mainAxisSpacing: 2.0,
             ),
@@ -70,7 +55,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width / 5,
                   child: Container(
-                    alignment: Alignment.center,
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black),
                           color: Colors.white,
@@ -88,7 +73,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
           padding: EdgeInsets.only(top: 20),
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 7,
+            crossAxisCount: this._lettersToFormWords.length,
             crossAxisSpacing: 1.0,
             mainAxisSpacing: 2.0,
           ),
@@ -148,9 +133,10 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
                       top: Radius.circular(10), bottom: Radius.circular(10)))),
             ),
             child: Text(
-              "CLear",
+              "Clear",
               style: TextStyle(fontSize: 20, color: Colors.black),
-            ))
+            )
+          )
       ],
     ));
   }

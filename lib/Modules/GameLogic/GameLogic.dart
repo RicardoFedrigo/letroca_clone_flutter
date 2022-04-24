@@ -5,7 +5,7 @@ import 'package:letroca_clone_flutter/Modules/Levels/level1/Level1.dart';
 class GameLogic {
   GameLogic();
 
-  int actualLevel = 1;
+  int actualLevel = 0;
   List<LevelAbastraction> levels = [new Level1()];
 
   int totalPoints = 0;

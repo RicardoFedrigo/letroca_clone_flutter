@@ -7,7 +7,7 @@ import '../Modules/GameLogic/Word.dart';
 class WordsToFindInScreen extends StatelessWidget {
   List<Word> _words;
 
-  WordsToFindInScreen(this._words);
+  WordsToFindInScreen(List<Word> this._words);
   
   @override
   Widget build(BuildContext context) {
@@ -16,9 +16,7 @@ class WordsToFindInScreen extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.width,
         child: ListView(
-          children: List.generate(this._words.length, (index) {
-            return WordToDiscover(this._words[index]);
-          }),
+          children: List.generate(5, (index) => WordToDiscover(_words[index])),
         ),
       ),
     );
