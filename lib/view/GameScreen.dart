@@ -1,13 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:letroca_clone_flutter/Components/CountDownTimer.dart';
-import 'package:letroca_clone_flutter/Components/PoitsCount.dart';
 import 'package:letroca_clone_flutter/Modules/GameLogic/GameLogic.dart';
 import 'package:letroca_clone_flutter/Modules/GameLogic/Word.dart';
 import 'package:letroca_clone_flutter/view/GameBody.dart';
-import 'package:letroca_clone_flutter/view/KeyboardScreen.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../Components/NextLevelButton.dart';
@@ -17,13 +14,8 @@ import 'WordsToFindInScreen.dart';
 class GameScreen extends StatefulWidget {
   late GameLogic _gameLogic;
   
-  GameScreen(GameLogic ?gameLogic){
-    if(gameLogic != null){
+  GameScreen(GameLogic gameLogic){
     _gameLogic = gameLogic;
-
-    }else {
-      _gameLogic = GameLogic();
-    };
   }
 
   @override
@@ -40,13 +32,8 @@ class _GameScreenState extends State<GameScreen> {
 
   late GameBody _gameBody;
 
-  _GameScreenState(GameLogic ?gameLogic) {
-    if(gameLogic != null){
+  _GameScreenState(GameLogic gameLogic) {
     _gameLogic = gameLogic;
-
-    }else {
-      _gameLogic = GameLogic();
-    }
     _actualLevel = _gameLogic.getLevel();
     _wordsInlevel = _actualLevel.getWordsToDiscover();
     _totalPoints = _actualLevel.points | 0;
@@ -67,6 +54,7 @@ class _GameScreenState extends State<GameScreen> {
 
   GameLogic _nextLevel() {
     _gameLogic.nextLevel();
+    print({"level": _gameLogic.getLevel()});
     return _gameLogic;
   }
 
@@ -77,7 +65,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Color(0xFF008F8C),
       appBar: AppBar(
         title: Text("Letroca"),
         actions: <Widget>[
@@ -99,7 +87,7 @@ class _GameScreenState extends State<GameScreen> {
           Container(
               child: Padding(
             padding: EdgeInsets.all(15.0),
-            child: _percent > 0.5
+            child: _percent < 0.5
                 ? new LinearPercentIndicator(
                     width: 100.0,
                     animation: true,
