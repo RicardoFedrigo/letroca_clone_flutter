@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -38,13 +40,21 @@ class _RankingState extends State<Ranking> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    rank();
+    dadosranking();
+    timerRank();
   }
 
+  void timerRank() {
+    Timer(Duration(seconds: 5), () {
+      setState(() {
+        rank();
+      });
+    });
+  }
+
+  @override
   void rank() async {
     RankJson ranks = await getRank();
-    print(ranks);
     if (ranks.position == 0) {
       position1 = ranks;
       position2 = ranks;
@@ -108,11 +118,11 @@ class _RankingState extends State<Ranking> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Center(child: _linhas(position1)),
-                Center(child: _linhas(position2)),
-                Center(child: _linhas(position3)),
-                Center(child: _linhas(position4)),
-                Center(child: _linhas(position5)),
+                Center(child: _linhas(position1, 1)),
+                Center(child: _linhas(position2, 2)),
+                Center(child: _linhas(position3, 3)),
+                Center(child: _linhas(position4, 4)),
+                Center(child: _linhas(position5, 5)),
               ],
             ),
             SizedBox(
@@ -143,7 +153,7 @@ class _RankingState extends State<Ranking> {
     );
   }
 
-  Row _linhas(RankJson teste) {
+  Row _linhas(RankJson teste, int i) {
     if (teste.position == null) {
       return Row(
         children: [
@@ -189,8 +199,6 @@ class _RankingState extends State<Ranking> {
       String date, bool cor) {
     int cors = 255;
     if (cor) cors = 100;
-
-    return Row(children: [Text("TESTE"), Text("TESTE"), Text("TESTE")]);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

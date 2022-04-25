@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:letroca_clone_flutter/view/ScreenFinalGame.dart';
+import 'package:letroca_clone_flutter/view/ScreenProxLevel.dart';
 import 'Ranking.dart';
 import 'view/GameScreen.dart';
 
@@ -45,7 +47,7 @@ class Home extends StatelessWidget {
                           builder: (context) => Ranking(),
                         ));
                   },
-                  child: Text('SCORE', style: TextStyle(color: Colors.black)),
+                  child: Text('RANKING', style: TextStyle(color: Colors.black)),
                   style: ButtonStyle(
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12))),
