@@ -18,7 +18,7 @@ class WordsA implements IWords {
       // new Word("ornam"),
       // new Word("oramo"),
       // new Word("romao"),
-      // new Word("morna"),  
+      // new Word("morna"),
       // new Word("norma"),
       // new Word("ornam"),
     ]);
@@ -28,12 +28,12 @@ class WordsA implements IWords {
 
   get words => _words;
   get letters => _listaLetter;
-  
+
   @override
   List<String> getLetters() {
     return this._listaLetter;
   }
-  
+
   @override
   List<Word> getWords() {
     return this._words;

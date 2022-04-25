@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'dart:async';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:letroca_clone_flutter/Components/CountDownTimer.dart';
@@ -23,6 +25,31 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
+  Timer? countdownTimer;
+  Duration myDuration = Duration(minutes: 3);
+
+  @override
+  void initState() {
+    startTimer();
+  }
+
+  void setCountDown() {
+    final reduceSecondsBy = 1;
+    setState(() {
+      final seconds = myDuration.inSeconds - reduceSecondsBy;
+      if (seconds < 0) {
+        countdownTimer!.cancel();
+      } else {
+        myDuration = Duration(seconds: seconds);
+      }
+    });
+  }
+
+  void startTimer() {
+    countdownTimer =
+        Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
+  }
+
   late GameLogic _gameLogic;
   late LevelAbastraction _actualLevel;
   late List<Word> _wordsInlevel;
@@ -64,16 +91,22 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String strDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = strDigits(myDuration.inMinutes.remainder(60));
+    final seconds = strDigits(myDuration.inSeconds.remainder(60));
+    String timer = '$minutes:$seconds';
     return Scaffold(
         backgroundColor: Color(0xFF008F8C),
         appBar: AppBar(
           title: Text("Letroca"),
           actions: <Widget>[
             Container(
-              margin: const EdgeInsets.only(right: 20, bottom: 10),
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black)),
-              child: CountDownTimer(),
+              child: Center(
+                child: Text(
+                  timer,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
             ),
             Container(
               margin: const EdgeInsets.all(10),
