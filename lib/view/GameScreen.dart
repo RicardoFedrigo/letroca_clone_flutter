@@ -15,14 +15,23 @@ import '../Modules/Levels/LevelAbstration.dart';
 import 'WordsToFindInScreen.dart';
 
 class GameScreen extends StatefulWidget {
-  GameScreen();
+  late GameLogic _gameLogic;
+  
+  GameScreen(GameLogic ?gameLogic){
+    if(gameLogic != null){
+    _gameLogic = gameLogic;
+
+    }else {
+      _gameLogic = GameLogic();
+    };
+  }
 
   @override
-  State<GameScreen> createState() => _GameScreenState();
+  State<GameScreen> createState() => _GameScreenState(_gameLogic);
 }
 
 class _GameScreenState extends State<GameScreen> {
-  final GameLogic _gameLogic = new GameLogic();
+  late GameLogic _gameLogic;
 
   late LevelAbastraction _actualLevel;
   late List<Word> _wordsInlevel;
@@ -31,11 +40,16 @@ class _GameScreenState extends State<GameScreen> {
 
   late GameBody _gameBody;
 
-  _GameScreenState() {
+  _GameScreenState(GameLogic ?gameLogic) {
+    if(gameLogic != null){
+    _gameLogic = gameLogic;
+
+    }else {
+      _gameLogic = GameLogic();
+    }
     _actualLevel = _gameLogic.getLevel();
     _wordsInlevel = _actualLevel.getWordsToDiscover();
-    _totalPoints;
-    _gameBody = new GameBody(_actualLevel, _wordsInlevel, verifyWord);
+    _totalPoints = _actualLevel.points | 0;
   }
 
   void verifyWord(String word) {
@@ -49,24 +63,11 @@ class _GameScreenState extends State<GameScreen> {
         });
       }
     }
-    print({"actualLevel": _actualLevel, "totalPoints": _totalPoints});
   }
 
-  void _nextLevel() {
+  GameLogic _nextLevel() {
     _gameLogic.nextLevel();
-    _actualLevel = _gameLogic.getLevel();
-    _wordsInlevel = _actualLevel.getWordsToDiscover();
-    _totalPoints = _actualLevel.getPoints();
-    _percent = _percentDiscoverdWord();
-
-
-    print({"actualLevel": _actualLevel, "totalPoints": _totalPoints});
-
-    setState(() {
-      _totalPoints = _actualLevel.getPoints();
-      _wordsInlevel = _actualLevel.getWordsToDiscover();
-      _percent = _percentDiscoverdWord();
-    });
+    return _gameLogic;
   }
 
   double _percentDiscoverdWord() {
@@ -110,11 +111,11 @@ class _GameScreenState extends State<GameScreen> {
                     progressColor: Colors.yellow,
                     backgroundColor: Colors.white,
                   )
-                : NextLevelButton(_nextLevel),
+                : NextLevelButton(_nextLevel()),
           )),
         ],
       ),
-      body: _gameBody
+      body: new GameBody(_actualLevel, _wordsInlevel, verifyWord)
     );
   }
 }

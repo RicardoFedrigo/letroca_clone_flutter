@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:letroca_clone_flutter/view/GameScreen.dart';
 
-class proxLevel extends StatelessWidget {
-  const proxLevel({Key? key}) : super(key: key);
+import '../Modules/GameLogic/GameLogic.dart';
+
+class ScreenProxLevel extends StatelessWidget {
+  final GameLogic _gameLogic;
+  ScreenProxLevel(this._gameLogic);
 
   final int level = 2;
 
@@ -213,7 +217,13 @@ class proxLevel extends StatelessWidget {
                   height: 50.0,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GameScreen(_gameLogic),
+                        ));
+                  },
                   child: Text('PROXIMO LEVEL',
                       style: TextStyle(color: Colors.black)),
                   style: ButtonStyle(

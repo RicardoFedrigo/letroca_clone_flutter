@@ -1,15 +1,23 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:letroca_clone_flutter/view/GameScreen.dart';
+
+import '../Modules/GameLogic/GameLogic.dart';
+import '../view/ScreenProxLevel.dart';
 
 class NextLevelButton extends StatelessWidget {
-  final Function _nextLevel;
-  const NextLevelButton(Function nextLevel) : _nextLevel = nextLevel;
+  final GameLogic _gameLogic;
+  const NextLevelButton(this._gameLogic);
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
         onPressed: () {
-          this._nextLevel();
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ScreenProxLevel(_gameLogic),
+              )
+            );
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith<Color>((states) {

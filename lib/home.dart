@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:letroca_clone_flutter/view/ScreenFinalGame.dart';
 import 'package:letroca_clone_flutter/view/ScreenProxLevel.dart';
+import 'Modules/GameLogic/GameLogic.dart';
 import 'Ranking.dart';
 import 'view/GameScreen.dart';
 
@@ -26,7 +27,7 @@ class Home extends StatelessWidget {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => new GameScreen(),
+                          builder: (context) => new GameScreen(new GameLogic()),
                         ));
                   },
                   child: Text('START', style: TextStyle(color: Colors.black)),
