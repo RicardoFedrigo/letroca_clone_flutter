@@ -7,16 +7,22 @@ import 'WordsToFindInScreen.dart';
 
 class GameBody extends StatefulWidget {
   LevelAbastraction _actualLevel;
-  List<Word> _wordsInlevel;
   Function _verifyWord;
 
-  GameBody(this._actualLevel, this._wordsInlevel, this._verifyWord);
+  GameBody(this._actualLevel, this._verifyWord);
 
   @override
-  State<GameBody> createState() => _GameBodyState();
+  State<GameBody> createState() => new _GameBodyState(this._actualLevel, this._verifyWord);
 }
 
 class _GameBodyState extends State<GameBody> {
+  late LevelAbastraction _actualLevel;
+  Function _verifyWord;
+  _GameBodyState(this._actualLevel, this._verifyWord){
+    print({"_actualLevel": _actualLevel});
+    print({"wordsInlevel": _actualLevel.getWordsToDiscover()});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,11 +30,11 @@ class _GameBodyState extends State<GameBody> {
         children: <Widget>[
           Container(
             alignment: Alignment.topCenter,
-            child: WordsToFindInScreen(widget._wordsInlevel),
+            child: WordsToFindInScreen(_actualLevel.getWordsToDiscover()),
           ),
           Container(
               child:
-                  KeyboardScreen(widget._actualLevel.getListaLetter(), widget._verifyWord)),
+                  KeyboardScreen(_actualLevel.getListaLetter(), _verifyWord)),
         ],
       ),
     );

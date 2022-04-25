@@ -15,7 +15,7 @@ class NextLevelButton extends StatelessWidget {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => ScreenProxLevel(_gameLogic),
+                builder: (context) => new ScreenProxLevel(_gameLogic),
               )
             );
         },

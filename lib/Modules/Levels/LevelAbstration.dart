@@ -24,4 +24,5 @@ abstract class LevelAbastraction {
   int numberDiscovedWord();
   void setPoints(int points);
   int getPoints();
+  double porcentageDiscovedWord();
 }

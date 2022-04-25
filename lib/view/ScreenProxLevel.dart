@@ -2,12 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:letroca_clone_flutter/view/GameScreen.dart';
 
 import '../Modules/GameLogic/GameLogic.dart';
+import 'ScreenFinalGame.dart';
 
 class ScreenProxLevel extends StatelessWidget {
   final GameLogic _gameLogic;
+  late int level = _gameLogic.actualLevel + 1;
+
   ScreenProxLevel(this._gameLogic);
 
-  final int level = 2;
+  _nextLevel() {
+    print(_gameLogic.actualLevel);
+    if (_gameLogic.actualLevel < 2) {
+      _gameLogic.nextLevel();
+      return new GameScreen(_gameLogic);
+    }
+
+    return new ScreenFinalGame();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +102,11 @@ class ScreenProxLevel extends StatelessWidget {
                             width: 1.0,
                             color: Colors.black,
                           )),
-                      child: Text('350'),
+                      child: Text('${_gameLogic.getLevel().points}',
+                          style: TextStyle(
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black)),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(4, 0, 4, 4),
@@ -113,7 +128,8 @@ class ScreenProxLevel extends StatelessWidget {
                             width: 1.0,
                             color: Colors.black,
                           )),
-                      child: Text('%50'),
+                      child: Text(
+                          "${(_gameLogic.getLevel().porcentageDiscovedWord() * 100).toStringAsPrecision(2)}%"),
                     ),
                   ],
                 ),
@@ -187,7 +203,7 @@ class ScreenProxLevel extends StatelessWidget {
                             width: 1.0,
                             color: Colors.black,
                           )),
-                      child: Text('350'),
+                      child: Text('${_gameLogic.totalPoints}'),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(4, 0, 4, 4),
@@ -209,7 +225,7 @@ class ScreenProxLevel extends StatelessWidget {
                             width: 1.0,
                             color: Colors.black,
                           )),
-                      child: Text('760'),
+                      child: Text('${_gameLogic.getLevel().points}'),
                     ),
                   ],
                 ),
@@ -221,7 +237,8 @@ class ScreenProxLevel extends StatelessWidget {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => GameScreen(_gameLogic),
+                          maintainState: true,
+                          builder: (context) => _nextLevel(),
                         ));
                   },
                   child: Text('PROXIMO LEVEL',

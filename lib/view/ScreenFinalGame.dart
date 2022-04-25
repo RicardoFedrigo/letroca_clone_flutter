@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:letroca_clone_flutter/Ranking.dart';
 
-class finalGame extends StatelessWidget {
-  const finalGame({Key? key}) : super(key: key);
+import '../home.dart';
+
+class ScreenFinalGame extends StatelessWidget {
+  const ScreenFinalGame({Key? key}) : super(key: key);
 
   final int level = 2;
 
@@ -166,8 +168,14 @@ class finalGame extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
-                      child: Text('NOVA PARTIDA',
+                      onPressed: () {
+                           Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Home(),
+                            ));
+                      },
+                      child: Text('TELA INICIAL',
                           style: TextStyle(color: Colors.black)),
                       style: ButtonStyle(
                           shape: MaterialStateProperty.all(
