@@ -4,19 +4,19 @@ import 'package:letroca_clone_flutter/Components/KeyBoardScreen/ActionGameButton
 
 class KeyboardScreen extends StatefulWidget {
   List<String> _lettersInWord;
-   final Function _verifyWord;
+  final Function _verifyWord;
 
-  KeyboardScreen(this._lettersInWord,this._verifyWord);
+  KeyboardScreen(this._lettersInWord, this._verifyWord);
 
   @override
   State<KeyboardScreen> createState() =>
-      _KeyboardScreenState(this._lettersInWord,this._verifyWord);
+      _KeyboardScreenState(this._lettersInWord, this._verifyWord);
 }
 
 class _KeyboardScreenState extends State<KeyboardScreen> {
   List<String> _words;
   final Function _verifyWord;
-  _KeyboardScreenState(this._words,this._verifyWord) {
+  _KeyboardScreenState(this._words, this._verifyWord) {
     for (var i = 0; i < 8; i++) {
       this._lettersToFormWords.add(" ");
     }
@@ -38,6 +38,7 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
 
   void verifyWord() {
     this._verifyWord(this._lettersToFormWords.join());
+    this.clearLetter();
   }
 
   List<String> _lettersToFormWords = [];
@@ -118,9 +119,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
         ),
         Container(
           margin: EdgeInsets.only(top: 40),
-          child: Row(
-             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ActionGameButton(
               action: this.clearLetter,
               text: "Clear",
