@@ -115,6 +115,7 @@ class _RankingState extends State<Ranking> {
                 )
               ],
             ),
+            SizedBox(height: 10),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -156,10 +157,9 @@ class _RankingState extends State<Ranking> {
   Row _linhas(RankJson teste, int i) {
     if (teste.position == null) {
       return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(
-              child: Center(
-                  child: CircularProgressIndicator(color: Colors.black87)))
+          Center(child: CircularProgressIndicator(color: Colors.grey.shade100))
         ],
       );
     } else {
