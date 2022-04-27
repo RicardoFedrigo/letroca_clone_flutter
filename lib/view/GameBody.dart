@@ -33,6 +33,8 @@ class _GameBodyState extends State<GameBody> {
             child: WordsToFindInScreen(_actualLevel.getWordsToDiscover()),
           ),
           Container(
+            alignment: Alignment.topCenter,
+            width: MediaQuery.of(context).size.width/1.5,
               child:
                   KeyboardScreen(_actualLevel.getListaLetter(), _verifyWord)),
         ],

@@ -14,17 +14,20 @@ class KeyboardScreen extends StatefulWidget {
 }
 
 class _KeyboardScreenState extends State<KeyboardScreen> {
+
+  late List<String> _lettersInWord;
   List<String> _words;
   final Function _verifyWord;
   _KeyboardScreenState(this._words, this._verifyWord) {
-    for (var i = 0; i < 8; i++) {
-      this._lettersToFormWords.add(" ");
+
+    for (var i = 0; i < _words.length; i++) {
+      _lettersToFormWords.add(" ");
     }
   }
 
   void selectLetter(String letter) {
     setState(() {
-      this._lettersToFormWords[this._lettersToFormWords.indexOf(" ")] = letter;
+      _lettersToFormWords[_lettersToFormWords.indexOf(" ")] = letter;
     });
   }
 
@@ -44,7 +47,8 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
   List<String> _lettersToFormWords = [];
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return
+     Center(
         child: Column(
       children: [
         GridView.builder(
@@ -60,7 +64,6 @@ class _KeyboardScreenState extends State<KeyboardScreen> {
             itemBuilder: (context, index) {
               return Container(
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width / 5,
                   child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
