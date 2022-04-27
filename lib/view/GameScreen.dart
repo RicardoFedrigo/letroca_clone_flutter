@@ -7,6 +7,7 @@ import 'package:letroca_clone_flutter/Components/CountDownTimer.dart';
 import 'package:letroca_clone_flutter/Modules/GameLogic/GameLogic.dart';
 import 'package:letroca_clone_flutter/Modules/GameLogic/Word.dart';
 import 'package:letroca_clone_flutter/view/GameBody.dart';
+import 'package:letroca_clone_flutter/view/ScreenFinalGame.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../Components/NextLevelButton.dart';
@@ -100,7 +101,24 @@ class _GameScreenState extends State<GameScreen> {
     return Scaffold(
         backgroundColor: Color(0xFF008F8C),
         appBar: AppBar(
-          title: Text("Letroca"),
+          title: ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ScreenFinalGame(_gameLogic),
+                  ));
+            },
+            child: Text('FINALIZAR', style: TextStyle(color: Colors.black)),
+            style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12))),
+                minimumSize: MaterialStateProperty.all(Size(80, 40)),
+                overlayColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 204, 204, 204)),
+                backgroundColor: MaterialStateProperty.all(
+                    Color.fromARGB(255, 255, 255, 255))),
+          ),
           actions: <Widget>[
             Container(
               child: Center(
@@ -130,7 +148,8 @@ class _GameScreenState extends State<GameScreen> {
                       lineHeight: 20.0,
                       animationDuration: 2500,
                       percent: _percent,
-                      center: Text((_percent * 100).toStringAsPrecision(2) + "%"),
+                      center:
+                          Text((_percent * 100).toStringAsPrecision(2) + "%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       progressColor: Colors.yellow,
                       backgroundColor: Colors.white,
