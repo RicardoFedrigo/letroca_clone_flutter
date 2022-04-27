@@ -14,16 +14,6 @@ import 'pegarRank.dart';
 import 'dart:ui';
 import 'CriarJson.dart';
 
-String dataAgora() {
-  final now = DateTime.now();
-  final DataAgoraDia = now.day;
-  final DataAgoraMes = now.month;
-  final DataAgoraAno = now.year;
-  final DataAgoraHora = now.minute;
-
-  return '$DataAgoraDia/$DataAgoraMes/$DataAgoraAno';
-}
-
 RankJson position1 = new RankJson();
 RankJson position2 = new RankJson();
 RankJson position3 = new RankJson();
@@ -36,17 +26,19 @@ class Ranking extends StatefulWidget {
 }
 
 class _RankingState extends State<Ranking> {
+  late bool isLoad;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    dadosranking();
     timerRank();
   }
 
   void timerRank() {
+    isLoad = true;
     Timer(Duration(seconds: 5), () {
       setState(() {
+        isLoad = false;
         rank();
       });
     });
@@ -55,13 +47,7 @@ class _RankingState extends State<Ranking> {
   @override
   void rank() async {
     RankJson ranks = await getRank();
-    if (ranks.position == 0) {
-      position1 = ranks;
-      position2 = ranks;
-      position3 = ranks;
-      position4 = ranks;
-      position5 = ranks;
-    }
+
     if (ranks.position == 1) {
       position1 = ranks;
     }
@@ -81,6 +67,20 @@ class _RankingState extends State<Ranking> {
 
   @override
   Widget build(BuildContext context) {
+    return SafeArea(child: isLoad ? load() : telaranking());
+  }
+
+  Scaffold load() {
+    return Scaffold(
+      backgroundColor: Color(0xFF008F8C),
+      body: Center(
+        child: Container(
+            child: CircularProgressIndicator(color: Colors.grey.shade100)),
+      ),
+    );
+  }
+
+  SafeArea telaranking() {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xFF008F8C),
@@ -156,12 +156,7 @@ class _RankingState extends State<Ranking> {
 
   Row _linhas(RankJson teste, int i) {
     if (teste.position == null) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(child: CircularProgressIndicator(color: Colors.grey.shade100))
-        ],
-      );
+      return linhas(i.toString(), "-----", "-----", "-----", "-----", false);
     } else {
       return linhas(
           teste.position.toString(),

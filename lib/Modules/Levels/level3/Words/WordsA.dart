@@ -7,13 +7,18 @@ class WordsA implements IWords {
   List<String> _listaLetter = [];
   WordsA() {
     this._words.addAll([
-      new Word("amor"),
-      new Word("armo"),
-      new Word("mora"),
-      new Word("roma")
+      new Word("ADA"),
+      new Word("AGNA"),
+      new Word("ANDA"),
+      new Word("DAGA"),
+      new Word("NADA"),
+      new Word("NEGA"),
+      new Word("ADEGA"),
+      new Word("GANDA"),
+      new Word("AGENDA"),
     ]);
 
-    this._listaLetter.addAll(["a", "m", "o", "r"]);
+    this._listaLetter.addAll(["G", "E", "D", "N", 'A', 'A']);
   }
 
   get words => _words;

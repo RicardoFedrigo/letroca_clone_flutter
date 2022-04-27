@@ -32,13 +32,14 @@ class GameLogic {
 
   Duration getTotalTimer() {
     int totalTimer = 0;
-    levels.forEach((level) =>  totalTimer += level.getFinalTime().inSeconds);
+    levels.forEach((level) => totalTimer += level.getFinalTime().inSeconds);
 
-    int tempoGasto = (actualLevel + 1)*60*3;
-    int finalTimer = tempoGasto + totalTimer; 
-    int inSeconds = finalTimer%60;
-    int inMinutes = (finalTimer/60).toInt();
-    return new Duration(minutes: inMinutes, seconds: inSeconds); 
+    int tempoGasto = (actualLevel + 1) * 60 * 3;
+    int finalTimer = tempoGasto + totalTimer;
+    int inSeconds = finalTimer % 60;
+    int inMinutes = ((finalTimer / 60)).toInt();
+
+    return new Duration(minutes: inMinutes, seconds: inSeconds);
   }
 
   void resetLevel() {

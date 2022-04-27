@@ -104,7 +104,7 @@ class ScreenProxLevel extends StatelessWidget {
                           )),
                       child: Text('${_gameLogic.getLevel().points}',
                           style: TextStyle(
-                              fontSize: 25.0,
+                              fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.black)),
                     ),
@@ -129,7 +129,11 @@ class ScreenProxLevel extends StatelessWidget {
                             color: Colors.black,
                           )),
                       child: Text(
-                          "${(_gameLogic.getLevel().porcentageDiscovedWord() * 100).toStringAsPrecision(2)}%"),
+                          "${(_gameLogic.getLevel().porcentageDiscovedWord() * 100).toStringAsPrecision(2)}%",
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black)),
                     ),
                   ],
                 ),
@@ -203,7 +207,11 @@ class ScreenProxLevel extends StatelessWidget {
                             width: 1.0,
                             color: Colors.black,
                           )),
-                      child: Text('${_gameLogic.totalPoints}'),
+                      child: Text('${_gameLogic.totalPoints}',
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black)),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(4, 0, 4, 4),
@@ -225,7 +233,11 @@ class ScreenProxLevel extends StatelessWidget {
                             width: 1.0,
                             color: Colors.black,
                           )),
-                      child: Text('${_gameLogic.getLevel().points}'),
+                      child: Text('${_gameLogic.getLevel().points}',
+                          style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black)),
                     ),
                   ],
                 ),

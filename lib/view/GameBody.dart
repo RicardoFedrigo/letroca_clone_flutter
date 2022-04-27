@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../Modules/GameLogic/Word.dart';
 import '../Modules/Levels/LevelAbstration.dart';
@@ -12,13 +13,14 @@ class GameBody extends StatefulWidget {
   GameBody(this._actualLevel, this._verifyWord);
 
   @override
-  State<GameBody> createState() => new _GameBodyState(this._actualLevel, this._verifyWord);
+  State<GameBody> createState() =>
+      new _GameBodyState(this._actualLevel, this._verifyWord);
 }
 
 class _GameBodyState extends State<GameBody> {
   late LevelAbastraction _actualLevel;
   Function _verifyWord;
-  _GameBodyState(this._actualLevel, this._verifyWord){
+  _GameBodyState(this._actualLevel, this._verifyWord) {
     print({"_actualLevel": _actualLevel});
     print({"wordsInlevel": _actualLevel.getWordsToDiscover()});
   }
@@ -29,12 +31,13 @@ class _GameBodyState extends State<GameBody> {
       child: Column(
         children: <Widget>[
           Container(
+            color: Color.fromARGB(255, 0, 112, 110),
             alignment: Alignment.topCenter,
             child: WordsToFindInScreen(_actualLevel.getWordsToDiscover()),
           ),
           Container(
-            alignment: Alignment.topCenter,
-            width: MediaQuery.of(context).size.width/1.5,
+              alignment: Alignment.topCenter,
+              width: MediaQuery.of(context).size.width / 1.5,
               child:
                   KeyboardScreen(_actualLevel.getListaLetter(), _verifyWord)),
         ],

@@ -98,66 +98,78 @@ class _GameScreenState extends State<GameScreen> {
     final minutes = strDigits(_myDuration.inMinutes.remainder(60));
     final seconds = strDigits(_myDuration.inSeconds.remainder(60));
     String timer = '$minutes:$seconds';
-    return Scaffold(
-        backgroundColor: Color(0xFF008F8C),
-        appBar: AppBar(
-          title: ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ScreenFinalGame(_gameLogic),
-                  ));
-            },
-            child: Text('FINALIZAR', style: TextStyle(color: Colors.black)),
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12))),
-                minimumSize: MaterialStateProperty.all(Size(80, 40)),
-                overlayColor: MaterialStateProperty.all(
-                    Color.fromARGB(255, 204, 204, 204)),
-                backgroundColor: MaterialStateProperty.all(
-                    Color.fromARGB(255, 255, 255, 255))),
-          ),
-          actions: <Widget>[
-            Container(
-              child: Center(
-                child: Text(
-                  timer,
-                  style: TextStyle(fontSize: 20),
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Color(0xFF008F8C),
+          appBar: AppBar(
+            backgroundColor: Color(0xFF008F8C),
+            automaticallyImplyLeading: false,
+            title: ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScreenFinalGame(_gameLogic),
+                    ));
+              },
+              child: Text('FINALIZAR',
+                  style: TextStyle(color: Colors.black, fontSize: 12)),
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12))),
+                  minimumSize: MaterialStateProperty.all(Size(80, 30)),
+                  overlayColor: MaterialStateProperty.all(
+                      Color.fromARGB(255, 204, 204, 204)),
+                  backgroundColor: MaterialStateProperty.all(
+                      Color.fromARGB(255, 255, 255, 255))),
+            ),
+            actions: <Widget>[
+              Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.black)),
+                child: Center(
+                  child: Text(
+                    timer,
+                    style: TextStyle(fontSize: 20, color: Colors.black),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  color: Colors.white, border: Border.all(color: Colors.black)),
-              child: Text(
-                "$_totalPoints",
-                style: TextStyle(fontSize: 25, color: Colors.black),
+              Container(
+                margin: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.black)),
+                child: Center(
+                  child: Text(
+                    "$_totalPoints",
+                    style: TextStyle(fontSize: 25, color: Colors.black),
+                  ),
+                ),
               ),
-            ),
-            Container(
-                child: Padding(
-              padding: EdgeInsets.all(15.0),
-              child: _percent < 0.5
-                  ? new LinearPercentIndicator(
-                      width: 100.0,
-                      animation: true,
-                      lineHeight: 20.0,
-                      animationDuration: 2500,
-                      percent: _percent,
-                      center:
-                          Text((_percent * 100).toStringAsPrecision(2) + "%"),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      progressColor: Colors.yellow,
-                      backgroundColor: Colors.white,
-                    )
-                  : NextLevelButton(_nextLevel()),
-            )),
-          ],
-        ),
-        body: new GameBody(_actualLevel, verifyWord));
+              Container(
+                  margin: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(5),
+                  child: _percent < 0.5
+                      ? new LinearPercentIndicator(
+                          width: 100.0,
+                          animation: true,
+                          lineHeight: 20.0,
+                          animationDuration: 2500,
+                          percent: _percent,
+                          center: Text(
+                              (_percent * 100).toStringAsPrecision(2) + "%"),
+                          linearStrokeCap: LinearStrokeCap.roundAll,
+                          progressColor: Color.fromARGB(255, 0, 112, 110),
+                          backgroundColor: Colors.white,
+                        )
+                      : NextLevelButton(_nextLevel())),
+            ],
+          ),
+          body: new GameBody(_actualLevel, verifyWord)),
+    );
   }
 }
