@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:letroca_clone_flutter/Modules/GameLogic/GameLogic.dart';
 import 'package:letroca_clone_flutter/Ranking.dart';
+import 'package:letroca_clone_flutter/view/GameScreen.dart';
 
 import '../home.dart';
 
 class ScreenFinalGame extends StatelessWidget {
-  const ScreenFinalGame({Key? key}) : super(key: key);
 
-  final int level = 2;
+  GameLogic _gameLogic;
+  ScreenFinalGame(this._gameLogic);
+
+  _getTotalTimer() {
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +70,7 @@ class ScreenFinalGame extends StatelessWidget {
                           width: 1.0,
                           color: Colors.black,
                         )),
-                    child: Text('3'),
+                    child: Text('${_gameLogic.actualLevel +1}'),
                   ),
                 ),
                 SizedBox(
@@ -111,7 +117,7 @@ class ScreenFinalGame extends StatelessWidget {
                           width: 1.0,
                           color: Colors.black,
                         )),
-                    child: Text('1050'),
+                    child: Text('${_gameLogic.totalPoints}'),
                   ),
                 ),
                 SizedBox(
@@ -158,7 +164,7 @@ class ScreenFinalGame extends StatelessWidget {
                           width: 1.0,
                           color: Colors.black,
                         )),
-                    child: Text('03:00'),
+                    child: Text('${_gameLogic.getTotalTimer().inMinutes}:${_gameLogic.getTotalTimer().inSeconds}'),
                   ),
                 ),
                 SizedBox(
@@ -196,8 +202,31 @@ class ScreenFinalGame extends StatelessWidget {
                             ));
                       },
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(21, 0, 21, 0),
+                        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                         child: Text('RANKING',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                      style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12))),
+                          minimumSize: MaterialStateProperty.all(Size(100, 40)),
+                          overlayColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 204, 204, 204)),
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 255, 255, 255))),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => new GameScreen(new GameLogic()),
+                            ));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
+                        child: Text('NOVO JOGO',
                             style: TextStyle(color: Colors.black)),
                       ),
                       style: ButtonStyle(

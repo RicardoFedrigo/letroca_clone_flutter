@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:letroca_clone_flutter/view/WordsToFindInScreen.dart';
 
@@ -13,7 +15,9 @@ abstract class LevelAbastraction {
   int points = 0;
   @protected
   List<Word> discovedWord = [];
-
+  @protected
+  Duration myDuration = Duration(minutes: 0,seconds: 0);
+  
 
   List<String> getListaLetter();
   List<Word> getWordsToDiscover();
@@ -25,4 +29,6 @@ abstract class LevelAbastraction {
   void setPoints(int points);
   int getPoints();
   double porcentageDiscovedWord();
+  void setFinalDuration(Duration _myDuration);
+  Duration getFinalTime();
 }

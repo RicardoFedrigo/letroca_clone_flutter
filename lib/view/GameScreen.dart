@@ -25,8 +25,8 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  Timer? countdownTimer;
-  Duration myDuration = Duration(minutes: 3);
+  late Timer _countdownTimer;
+  Duration _myDuration = Duration(minutes: 3);
 
   @override
   void initState() {
@@ -36,17 +36,17 @@ class _GameScreenState extends State<GameScreen> {
   void setCountDown() {
     final reduceSecondsBy = 1;
     setState(() {
-      final seconds = myDuration.inSeconds - reduceSecondsBy;
+      final seconds = _myDuration.inSeconds - reduceSecondsBy;
       if (seconds < 0) {
-        countdownTimer!.cancel();
+        _countdownTimer!.cancel();
       } else {
-        myDuration = Duration(seconds: seconds);
+        _myDuration = Duration(seconds: seconds);
       }
     });
   }
 
   void startTimer() {
-    countdownTimer =
+    _countdownTimer =
         Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
   }
 
@@ -82,6 +82,8 @@ class _GameScreenState extends State<GameScreen> {
 
   GameLogic _nextLevel() {
     _gameLogic.addPoints(_actualLevel.points);
+    _countdownTimer.cancel();
+    _actualLevel.setFinalDuration(_myDuration);
     return _gameLogic;
   }
 
@@ -92,8 +94,8 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     String strDigits(int n) => n.toString().padLeft(2, '0');
-    final minutes = strDigits(myDuration.inMinutes.remainder(60));
-    final seconds = strDigits(myDuration.inSeconds.remainder(60));
+    final minutes = strDigits(_myDuration.inMinutes.remainder(60));
+    final seconds = strDigits(_myDuration.inSeconds.remainder(60));
     String timer = '$minutes:$seconds';
     return Scaffold(
         backgroundColor: Color(0xFF008F8C),

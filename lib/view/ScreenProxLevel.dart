@@ -17,7 +17,7 @@ class ScreenProxLevel extends StatelessWidget {
       return new GameScreen(_gameLogic);
     }
 
-    return new ScreenFinalGame();
+    return new ScreenFinalGame(_gameLogic);
   }
 
   @override

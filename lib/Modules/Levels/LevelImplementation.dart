@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:letroca_clone_flutter/Modules/Levels/LevelAbstration.dart';
 
 import '../../utils/removeAcentos.dart';
@@ -69,5 +71,15 @@ class LevelImplementation extends LevelAbastraction {
   @override
   double porcentageDiscovedWord() {
     return (this.discovedWord.length / this.wordsToDiscover.length);
+  }
+
+  @override
+  void setFinalDuration(Duration myDuration) {
+    this.myDuration = myDuration;
+  }
+  
+  @override
+  Duration getFinalTime() {
+      return this.myDuration;
   }
 }
